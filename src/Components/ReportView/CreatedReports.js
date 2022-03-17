@@ -31,7 +31,7 @@ function CreatedReports({ name }) {
         </li>
       </ul>
 
-      {showModal === true && (
+      {showModal && (
         <ReportCreationModal nameCompany={name} onClose={onModalToggle} />
       )}
     </>

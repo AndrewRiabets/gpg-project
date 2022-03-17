@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './ReportCreationModal.module.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BasicDataReportForm from '../ReportCreationForm/BasicDataReportForm';
 import PrimaryAccountingDocReportForm from '../ReportCreationForm/PrimaryAccountingDocReportForm';
@@ -13,7 +14,9 @@ import AdditionalServicesReportForm from '../ReportCreationForm/AdditionalServic
 const modalRoot = document.querySelector('#modal-root');
 
 export default function ReportCreationModal({ nameCompany, onClose }) {
-  console.log(onClose);
+  const [reportView, setReportView] = useState(false);
+  const [btnReportView, setBtnReportView] = useState(true);
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -33,19 +36,52 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
     }
   };
 
+  const showReportToggle = e => {
+    reportView ? setReportView(false) : setReportView(true);
+    btnReportView ? setBtnReportView(false) : setBtnReportView(true);
+  };
+
+  const test = e => {
+    e.preventDefault();
+    console.log(e);
+  };
+
   return createPortal(
     <div className={styles.overlay} onClick={handleOverlayClick}>
       <div className={styles.modalContainer}>
-        <div className={styles.scroll}>
-          <h1>{nameCompany}</h1>
-          <BasicDataReportForm />
-          <PrimaryAccountingDocReportForm />
-          <VatReportForm />
-          <SalaryReportForm />
-          <TaxesReportForm />
-          <FiledAccountingReportsForm />
-          <ClosingMonthReportForm />
-          <AdditionalServicesReportForm />
+        <div>
+          <div className={styles.modalHeader}>
+            <h1>{nameCompany}</h1>
+            <button type="button" onClick={onClose}>
+              X
+            </button>
+          </div>
+          <form onSubmit={test}>
+            <div className={styles.modalBody}>
+              <BasicDataReportForm />
+              <button type="button" onClick={showReportToggle}>
+                {btnReportView
+                  ? 'Показать весь отчет'
+                  : 'Скрыть развернутый отчет'}
+              </button>
+              {reportView && (
+                <div>
+                  <PrimaryAccountingDocReportForm />
+                  <VatReportForm />
+                  <SalaryReportForm />
+                  <TaxesReportForm />
+                  <FiledAccountingReportsForm />
+                  <ClosingMonthReportForm />
+                  <AdditionalServicesReportForm />
+                </div>
+              )}
+            </div>
+            <div className={styles.modalFooter}>
+              <button className="btn btn-success" type="submit">
+                Создать отчет
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>,

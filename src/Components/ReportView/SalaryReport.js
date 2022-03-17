@@ -1,7 +1,9 @@
+import EditReportBtn from './EditReportBtn';
+
 function SalaryReport() {
   return (
     <div>
-      <button type="button">Редактировать</button>
+      <EditReportBtn reportPart={'SalaryReport'} text={'Заработная плата'} />
       <h5>Заработная плата</h5>
 
       <div>

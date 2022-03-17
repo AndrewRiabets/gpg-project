@@ -1,6 +1,7 @@
 function BasicDataReportForm() {
   return (
     <div>
+      <h5>Общая информация</h5>
       <div>
         <label>
           Месяц

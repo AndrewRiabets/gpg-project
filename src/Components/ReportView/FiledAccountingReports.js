@@ -1,6 +1,12 @@
+import EditReportBtn from './EditReportBtn';
+
 function FiledAccountingReports() {
   return (
     <div>
+      <EditReportBtn
+        reportPart={'FiledAccountingReports'}
+        text={'Поданные отчеты'}
+      />
       <h5>Поданные отчеты</h5>
       <ul>
         <li>

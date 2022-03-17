@@ -1,7 +1,12 @@
+import EditReportBtn from './EditReportBtn';
+
 function TaxesReport() {
   return (
     <div>
-      <button type="button">Редактировать</button>
+      <EditReportBtn
+        reportPart={'TaxesReport'}
+        text={'Налоги оплачиваемые в текущем месяце'}
+      />
       <h5>Налоги оплачиваемые в текущем месяце</h5>
 
       <div>

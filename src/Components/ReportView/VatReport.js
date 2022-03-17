@@ -1,6 +1,9 @@
+import EditReportBtn from './EditReportBtn';
+
 function VatReport() {
   return (
     <div>
+      <EditReportBtn reportPart={'VatReport'} text={'Регистрация НДС'} />
       <h5>Регистрация НДС</h5>
 
       <div>

@@ -1,7 +1,12 @@
+import EditReportBtn from './EditReportBtn';
+
 function PrimaryAccountingDocReport() {
   return (
     <div>
-      <button type="button">Редактировать</button>
+      <EditReportBtn
+        reportPart={'PrimaryAccountingDocReport'}
+        text={'Первичные документы'}
+      />
       <h5>Первичные документы</h5>
 
       <div>

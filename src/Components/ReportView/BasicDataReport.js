@@ -1,7 +1,11 @@
+import EditReportBtn from './EditReportBtn';
+
 function BasicDataReport() {
   return (
     <div>
-      <button type="button">Редактировать</button>
+      <EditReportBtn reportPart={'BasicDataReport'} text={'Общая информация'} />
+      <h5>Общая информация</h5>
+
       <div>
         <div>
           <p>Месяц</p>
@@ -13,7 +17,7 @@ function BasicDataReport() {
 
       <div>
         <div>
-          <p>налогообложения</p>
+          <p>Система налогообложения</p>
         </div>
         <div>
           <p>Общая система С НДС</p>

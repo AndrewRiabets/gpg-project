@@ -1,7 +1,12 @@
+import EditReportBtn from './EditReportBtn';
+
 function AdditionalServicesReport() {
   return (
     <div>
-      <button type="button">Редактировать</button>
+      <EditReportBtn
+        reportPart={'AdditionalServicesReport'}
+        text={'Дополнитеьные услуги'}
+      />
       <h5>Дополнитеьные услуги</h5>
       <ul>
         <li>

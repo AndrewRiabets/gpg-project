@@ -1,7 +1,12 @@
+import EditReportBtn from './EditReportBtn';
+
 function ClosingMonthReport() {
   return (
     <div>
-      <button type="button">Редактировать</button>
+      <EditReportBtn
+        reportPart={'ClosingMonthReport'}
+        text={'Закрытие месяца'}
+      />
       <h5>Закрытие месяца</h5>
 
       <div>
