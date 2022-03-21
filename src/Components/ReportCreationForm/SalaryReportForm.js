@@ -1,4 +1,12 @@
-function SalaryReportForm() {
+function SalaryReportForm({ handleChange, value }) {
+  const salaryInfo = value;
+
+  const handleReportItem = e => {
+    const value = e.target.value;
+    const reportItemId = e.target.id;
+    salaryInfo[reportItemId] = value;
+    handleChange(salaryInfo);
+  };
   return (
     <div>
       <h5>Заработная плата</h5>
@@ -11,8 +19,8 @@ function SalaryReportForm() {
             min="2022-03-01"
             max="2024-12-31"
             // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="paidSalaryFirstHalf"
           />
         </label>
       </div>
@@ -25,8 +33,8 @@ function SalaryReportForm() {
             min="2022-03-01"
             max="2024-12-31"
             // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="createdPayFirstHalf"
           />
         </label>
       </div>
@@ -39,8 +47,8 @@ function SalaryReportForm() {
             min="2022-03-01"
             max="2024-12-31"
             // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="paidSalarySecondtHalf"
           />
         </label>
       </div>
@@ -53,8 +61,8 @@ function SalaryReportForm() {
             min="2022-03-01"
             max="2024-12-31"
             // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="createdPaySecondtHalf"
           />
         </label>
       </div>

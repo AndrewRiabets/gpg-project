@@ -1,4 +1,12 @@
-function VatReportForm() {
+function VatReportForm({ handleChange, value }) {
+  const vatInfo = value;
+
+  const handleReportItem = e => {
+    const value = e.target.value;
+    const reportItemId = e.target.id;
+    vatInfo[reportItemId] = value;
+    handleChange(vatInfo);
+  };
   return (
     <div>
       <h5>Регистрация НДС</h5>
@@ -9,22 +17,18 @@ function VatReportForm() {
         </p>
         к регистрации (шт.)
         <input
-          // className={style.input__field}
-          // onChange={handleInputChange}
+          onChange={handleReportItem}
+          id="firstHalfToRegVAT"
           type="text"
-          name="registrationVatFirstHalfMonth"
           title="Только цифры"
-          // value={number}
           required
         />
         зарегистрировано (шт.)
         <input
-          // className={style.input__field}
-          // onChange={handleInputChange}
+          onChange={handleReportItem}
+          id="firstHalfRegistratedVAT"
           type="text"
-          name="registrationVatFirstHalfMonth"
           title="Только цифры"
-          // value={number}
           required
         />
       </label>
@@ -35,22 +39,18 @@ function VatReportForm() {
         </p>
         к регистрации (шт.)
         <input
-          // className={style.input__field}
-          // onChange={handleInputChange}
+          onChange={handleReportItem}
+          id="secHalfToRegVAT"
           type="text"
-          name="registrationVatFirstHalfMonth"
           title="Только цифры"
-          // value={number}
           required
         />
         зарегистрировано (шт.)
         <input
-          // className={style.input__field}
-          // onChange={handleInputChange}
+          onChange={handleReportItem}
+          id="secHalfRegistratedVAT"
           type="text"
-          name="registrationVatFirstHalfMonth"
           title="Только цифры"
-          // value={number}
           required
         />
       </label>

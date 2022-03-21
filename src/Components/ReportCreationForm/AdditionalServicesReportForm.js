@@ -1,4 +1,13 @@
-function AdditionalServicesReportForm() {
+function AdditionalServicesReportForm({ handleChange, value }) {
+  const newAdditionalServicesInfo = value;
+
+  const handleAdittionalServiceItem = e => {
+    const value = e.target.value;
+    const reportItemId = e.target.id;
+    newAdditionalServicesInfo[reportItemId] = value;
+    handleChange(newAdditionalServicesInfo);
+  };
+
   return (
     <div>
       <h5>Дополнитеьные услуги</h5>
@@ -8,12 +17,11 @@ function AdditionalServicesReportForm() {
           Количество созданных платежных поручений за месяц
           <input
             // className={style.input__field}
-            // onChange={handleInputChange}
+            onChange={handleAdittionalServiceItem}
+            id="closeMonth1c"
             type="text"
             name="amountPaymentOrders"
             title="Только цифры"
-            // value={number}
-            required
           />
         </label>
       </div>

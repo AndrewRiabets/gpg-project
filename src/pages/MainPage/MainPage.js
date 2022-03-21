@@ -36,7 +36,7 @@ const MainPage = () => {
             Рога и копыта 3
           </button>
         </li>
-        {companyListRender ? <CreatedReports name={companyName} /> : null}
+        {companyListRender && <CreatedReports name={companyName} />}
       </ul>
     </>
   );

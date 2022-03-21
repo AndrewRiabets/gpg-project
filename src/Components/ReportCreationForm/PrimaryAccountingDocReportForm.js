@@ -1,4 +1,12 @@
-function PrimaryAccountingDocReportForm() {
+function PrimaryAccountingDocReportForm({ handleChange, value }) {
+  const newPrimeAccDocInfo = value;
+
+  const handleReportItem = e => {
+    const value = e.target.value;
+    const reportItemId = e.target.id;
+    newPrimeAccDocInfo[reportItemId] = value;
+    handleChange(newPrimeAccDocInfo);
+  };
   return (
     <div>
       <h5>Первичные документы</h5>
@@ -7,11 +15,8 @@ function PrimaryAccountingDocReportForm() {
           Разнесена выписка за первую половину месяца
           <input
             type="date"
-            min="2022-03-01"
-            max="2024-12-31"
-            // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="firstHalfStatement"
           />
         </label>
       </div>
@@ -23,9 +28,8 @@ function PrimaryAccountingDocReportForm() {
             type="date"
             min="2022-03-01"
             max="2024-12-31"
-            // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="secondHalfStatement"
           />
         </label>
       </div>
@@ -37,9 +41,8 @@ function PrimaryAccountingDocReportForm() {
             type="date"
             min="2022-03-01"
             max="2024-12-31"
-            // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="primaryDocCompleted"
           />
         </label>
       </div>

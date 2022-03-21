@@ -5,7 +5,7 @@ import ReportCreationModal from '../ReportCreationModal/ReportCreationModal';
 
 function CreatedReports({ name }) {
   const [showModal, setShowModal] = useState(false);
-  // console.log(showModal);
+
   const onModalToggle = e => {
     return showModal ? setShowModal(false) : setShowModal(true);
   };

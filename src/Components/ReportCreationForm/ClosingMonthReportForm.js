@@ -1,4 +1,12 @@
-function ClosingMonthReportForm() {
+function ClosingMonthReportForm({ handleChange, value }) {
+  const newMonthInfo = value;
+
+  const handleMontInfoItem = e => {
+    const value = e.target.value;
+    const reportItemId = e.target.id;
+    newMonthInfo[reportItemId] = value;
+    handleChange(newMonthInfo);
+  };
   return (
     <div>
       <h5>Закрытие месяца</h5>
@@ -11,8 +19,8 @@ function ClosingMonthReportForm() {
             min="2022-03-01"
             max="2024-12-31"
             // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleMontInfoItem}
+            id="closeMonth1c"
           />
         </label>
       </div>
@@ -25,8 +33,8 @@ function ClosingMonthReportForm() {
             min="2022-03-01"
             max="2024-12-31"
             // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleMontInfoItem}
+            id="finaceResult"
           />
         </label>
       </div>

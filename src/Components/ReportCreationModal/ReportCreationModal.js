@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { useForm } from 'react-hook-form';
+
 import styles from './ReportCreationModal.module.css';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,11 +13,34 @@ import TaxesReportForm from '../ReportCreationForm/TaxesReportForm';
 import FiledAccountingReportsForm from '../ReportCreationForm/FiledAccountingReportsForm';
 import ClosingMonthReportForm from '../ReportCreationForm/ClosingMonthReportForm';
 import AdditionalServicesReportForm from '../ReportCreationForm/AdditionalServicesReportForm';
+import reportItemsList from '../../helpers/reportItemslist';
+
 const modalRoot = document.querySelector('#modal-root');
+const {
+  generalInfo,
+  primeAccDocInfo,
+  vatInfo,
+  salaryInfo,
+  taxInfo,
+  reportsInfo,
+  monthInfo,
+  additionalServicesInfo,
+} = reportItemsList;
 
 export default function ReportCreationModal({ nameCompany, onClose }) {
   const [reportView, setReportView] = useState(false);
   const [btnReportView, setBtnReportView] = useState(true);
+
+  const [newGeneralInfo, setNewGeneralInfo] = useState(generalInfo);
+  const [newPrimeAccDocInfo, setPrimeAccDocInfo] = useState(primeAccDocInfo);
+  const [newVatInfo, setVatInfo] = useState(vatInfo);
+  const [newSalaryInfo, setSalaryInfo] = useState(salaryInfo);
+  const [newTaxInfo, setTaxInfo] = useState(taxInfo);
+  const [newReportInfo, setReportInfo] = useState(reportsInfo);
+  const [newMonthInfo, setMonthInfo] = useState(monthInfo);
+  const [newAdditionalServicesInfo, setAdditionalServicesInfo] = useState(
+    additionalServicesInfo,
+  );
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
@@ -41,9 +66,10 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
     btnReportView ? setBtnReportView(false) : setBtnReportView(true);
   };
 
-  const test = e => {
+  const formSubmit = e => {
     e.preventDefault();
-    console.log(e);
+    console.log(newGeneralInfo);
+    console.log(newPrimeAccDocInfo);
   };
 
   return createPortal(
@@ -56,9 +82,12 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
               X
             </button>
           </div>
-          <form onSubmit={test}>
+          <form onSubmit={formSubmit}>
             <div className={styles.modalBody}>
-              <BasicDataReportForm />
+              <BasicDataReportForm
+                handleChange={setNewGeneralInfo}
+                value={newPrimeAccDocInfo}
+              />
               <button type="button" onClick={showReportToggle}>
                 {btnReportView
                   ? 'Показать весь отчет'
@@ -66,13 +95,31 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
               </button>
               {reportView && (
                 <div>
-                  <PrimaryAccountingDocReportForm />
-                  <VatReportForm />
-                  <SalaryReportForm />
-                  <TaxesReportForm />
-                  <FiledAccountingReportsForm />
-                  <ClosingMonthReportForm />
-                  <AdditionalServicesReportForm />
+                  <PrimaryAccountingDocReportForm
+                    handleChange={setPrimeAccDocInfo}
+                    value={newPrimeAccDocInfo}
+                  />
+                  <VatReportForm handleChange={setVatInfo} value={newVatInfo} />
+                  <SalaryReportForm
+                    handleChange={setSalaryInfo}
+                    value={newSalaryInfo}
+                  />
+                  <TaxesReportForm
+                    handleChange={setTaxInfo}
+                    value={newTaxInfo}
+                  />
+                  <FiledAccountingReportsForm
+                    handleChange={setReportInfo}
+                    value={newReportInfo}
+                  />
+                  <ClosingMonthReportForm
+                    handleChange={setMonthInfo}
+                    value={newMonthInfo}
+                  />
+                  <AdditionalServicesReportForm
+                    handleChange={setAdditionalServicesInfo}
+                    value={newAdditionalServicesInfo}
+                  />
                 </div>
               )}
             </div>

@@ -1,4 +1,12 @@
-function BasicDataReportForm() {
+function BasicDataReportForm({ handleChange, value }) {
+  const newGeneralInfo = value;
+
+  const handleReportItem = e => {
+    const value = e.target.value;
+    const reportItemId = e.target.id;
+    newGeneralInfo[reportItemId] = value;
+    handleChange(newGeneralInfo);
+  };
   return (
     <div>
       <h5>Общая информация</h5>
@@ -9,16 +17,20 @@ function BasicDataReportForm() {
             type="month"
             min="2022-03"
             max="2023-12"
-            // className={style.input__field}
-            // onChange={handleInputChange}
-            // value={month}
+            onChange={handleReportItem}
+            id="month"
           />
         </label>
       </div>
 
       <div>
         <label htmlFor="taxationSystems">Система налогообложения</label>
-        <select name="taxationSystems" id="taxationSystems">
+        <select
+          name="taxationSystems"
+          id="taxSystem"
+          onChange={handleReportItem}
+          required
+        >
           <option value="Общая система С НДС">Общая система С НДС</option>
           <option value="Общая система БЕЗ НДС">Общая система БЕЗ НДС</option>
           <option value="Единый налог 1 группа">Единый налог 1 группа</option>
@@ -38,11 +50,11 @@ function BasicDataReportForm() {
           Количество наемных сотрудников на начало месяца
           <input
             // className={style.input__field}
-            // onChange={handleInputChange}
+            onChange={handleReportItem}
+            id={'emplBeginMonth'}
             type="text"
             name="employeeBeginingMonth"
             title="Только цифры"
-            // value={number}
             required
           />
         </label>
@@ -53,11 +65,10 @@ function BasicDataReportForm() {
           Количество наемных сотрудников на конец месяца
           <input
             // className={style.input__field}
-            // onChange={handleInputChange}
+            onChange={handleReportItem}
+            id={'emplEndMonth'}
             type="text"
-            name="employeeEndMonth"
             title="Только цифры"
-            //   value={number}
           />
         </label>
       </div>
@@ -68,11 +79,11 @@ function BasicDataReportForm() {
           за первую половину месяца
           <input
             // className={style.input__field}
-            // onChange={handleInputChange}
+            onChange={handleReportItem}
+            id={'firstSalaryDay'}
             type="text"
             name="prepaid"
             title="Только цифры"
-            // value={number}
             required
           />
         </label>
@@ -80,11 +91,11 @@ function BasicDataReportForm() {
           за вторую половину месяца
           <input
             // className={style.input__field}
-            // onChange={handleInputChange}
+            onChange={handleReportItem}
+            id={'secondSalaryDay'}
             type="text"
             name="salary"
             title="Только цифры"
-            // value={number}
             required
           />
         </label>
