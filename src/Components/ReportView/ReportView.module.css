@@ -1,0 +1,72 @@
+.companyName {
+  font-family: Roboto;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 22px;
+  text-align: center;
+  padding: 10px;
+}
+.createReportBtnContainer {
+  margin-top: 20px;
+  text-align: center;
+  padding: 0px;
+}
+
+.createReportBtn {
+  font-weight: 700;
+  width: 200px;
+  height: 50px;
+  color: white;
+  text-decoration: none;
+  padding: 0.8em 1em calc(0.8em + 3px);
+  border-radius: 3px;
+  background: rgb(64, 199, 129);
+  box-shadow: 0 -3px rgb(53, 167, 110) inset;
+  transition: 0.2s;
+  border: none;
+  box-sizing: border-box;
+}
+
+.reportsListContainer {
+  margin-top: 30px;
+  padding: 0;
+}
+
+.reportsListTitle {
+  font-family: Roboto;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 12px;
+  text-align: center;
+  padding: 10px;
+}
+
+.monthReportsSet {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.monthReportsSetItem {
+  margin-top: 10px;
+  flex-basis: calc(70% / 3);
+  text-align: center;
+}
+
+.monthReportsSetLink {
+  border-radius: 2px;
+  font-weight: 700;
+  width: 200px;
+  height: 50px;
+  color: white;
+  text-decoration: none;
+  padding: 0.8em 1em calc(0.8em + 3px);
+  border-radius: 3px;
+  background: rgb(64, 199, 129);
+  box-shadow: 0 -3px rgb(53, 167, 110) inset;
+  transition: 0.2s;
+  border: none;
+  /* padding: 30px; */
+  box-sizing: border-box;
+}

@@ -1,6 +1,9 @@
 import { React, useState } from 'react';
 
+import Container from '../../Components/Container';
 import CreatedReports from '../../Components/ReportView/CreatedReports';
+
+import style from './MainPage.module.css';
 
 const MainPage = () => {
   const [companyName, setCompanyName] = useState('');
@@ -18,26 +21,43 @@ const MainPage = () => {
   };
   return (
     <>
-      <h1>Выбирете компанию</h1>
+      <Container>
+        <div className={style.mainPageContainer}>
+          <h1 className={style.mainPageTitle}>Выбирете компанию</h1>
 
-      <ul>
-        <li>
-          <button type="button" onClick={btnCompanyHandler}>
-            Рога и копыта 1
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={btnCompanyHandler}>
-            Рога и копыта 2
-          </button>
-        </li>
-        <li>
-          <button type="button" onClick={btnCompanyHandler}>
-            Рога и копыта 3
-          </button>
-        </li>
-        {companyListRender && <CreatedReports name={companyName} />}
-      </ul>
+          <ul className={style.companyList}>
+            <li className={style.companyListItem}>
+              <button
+                type="button"
+                onClick={btnCompanyHandler}
+                className={style.companyButton}
+              >
+                Дженерал партнерс групп
+              </button>
+            </li>
+
+            <li className={style.companyListItem}>
+              <button
+                type="button"
+                onClick={btnCompanyHandler}
+                className={style.companyButton}
+              >
+                Рога и копыта 2
+              </button>
+            </li>
+            <li className={style.companyListItem}>
+              <button
+                type="button"
+                onClick={btnCompanyHandler}
+                className={style.companyButton}
+              >
+                Рога и копыта 3
+              </button>
+            </li>
+          </ul>
+          {companyListRender && <CreatedReports name={companyName} />}
+        </div>
+      </Container>
     </>
   );
 };

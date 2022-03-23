@@ -78,9 +78,12 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
         <div>
           <div className={styles.modalHeader}>
             <h1>{nameCompany}</h1>
-            <button type="button" onClick={onClose}>
-              X
-            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              class="btn-close"
+              aria-label="Close"
+            ></button>
           </div>
           <form onSubmit={formSubmit}>
             <div className={styles.modalBody}>
