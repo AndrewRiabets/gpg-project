@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 import Container from '../../Components/Container';
 import CreatedReports from '../../Components/ReportView/CreatedReports';
@@ -24,7 +25,6 @@ const MainPage = () => {
       <Container>
         <div className={style.mainPageContainer}>
           <h1 className={style.mainPageTitle}>Выбирете компанию</h1>
-
           <ul className={style.companyList}>
             <li className={style.companyListItem}>
               <button

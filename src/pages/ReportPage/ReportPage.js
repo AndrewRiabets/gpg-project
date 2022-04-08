@@ -10,8 +10,7 @@ import FiledAccountingReports from '../../Components/ReportView/FiledAccountingR
 import ClosingMonthReport from '../../Components/ReportView/ClosingMonthReport';
 import AdditionalServicesReport from '../../Components/ReportView/AdditionalServicesReport';
 
-const ReportPage = ({ companyName }) => {
-  console.log(companyName);
+const ReportPage = () => {
   return (
     <>
       <NavLink to="/main">Назад</NavLink>

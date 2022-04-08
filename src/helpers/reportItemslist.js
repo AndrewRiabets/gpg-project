@@ -33,7 +33,7 @@ const reportsInfo = { 1: { reportTitle: '', reportPayDate: '' } };
 
 const monthInfo = { closeMonth1c: '', finaceResult: '' };
 
-const additionalServicesInfo = { closeMonth1c: '' };
+const additionalServicesInfo = { amountPaymentOrders: '' };
 
 const reportItemsList = {
   generalInfo,

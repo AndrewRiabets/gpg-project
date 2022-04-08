@@ -18,7 +18,7 @@ function AdditionalServicesReportForm({ handleChange, value }) {
           <input
             // className={style.input__field}
             onChange={handleAdittionalServiceItem}
-            id="closeMonth1c"
+            id="amountPaymentOrders"
             type="text"
             name="amountPaymentOrders"
             title="Только цифры"

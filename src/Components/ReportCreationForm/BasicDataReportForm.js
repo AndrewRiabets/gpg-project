@@ -1,3 +1,7 @@
+import { connect } from "react-redux";
+import * as actions from '../../redux/createNewReport/newReport-action'
+
+
 function BasicDataReportForm({ handleChange, value }) {
   const newGeneralInfo = value;
 
@@ -104,4 +108,15 @@ function BasicDataReportForm({ handleChange, value }) {
   );
 }
 
-export default BasicDataReportForm;
+
+// const mapStateToProps = state => {
+//   return {
+//     value: state.BasicDataReportForm
+//   }
+// }
+
+const mapDispatchToProps = dispatch => ({
+  handleReportItem: e => dispatch(actions.generalInfo(e))
+})
+
+export default connect(null, mapDispatchToProps)(BasicDataReportForm) ;

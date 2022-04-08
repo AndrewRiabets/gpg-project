@@ -81,7 +81,7 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
             <button
               type="button"
               onClick={onClose}
-              class="btn-close"
+              className="btn-close"
               aria-label="Close"
             ></button>
           </div>

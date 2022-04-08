@@ -1,5 +1,5 @@
 import { React, Suspense, useState } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import ReportCreationModal from '../ReportCreationModal/ReportCreationModal';
 import style from './ReportView.module.css';
