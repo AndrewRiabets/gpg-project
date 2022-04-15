@@ -1,40 +1,56 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import authOperations from '../../redux/auth/auth-operations';
+import { useForm } from 'react-hook-form';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+import authOperations from '../../redux/auth/auth-operations';
 import Container from '../../Components/Container';
+
+const FormSchema = Yup.object().shape({
+  login: Yup.string().lowercase().trim().required('Это обязательное поле'),
+  password: Yup.string().min(6).required('Это обязательное поле'),
+});
 
 export default function AuthPage() {
   const dispatch = useDispatch();
-  const [login, setLogin] = useState('');
-  const [password, setPassword] = useState('');
+  const { register, handleSubmit, reset } = useForm({
+    resolver: yupResolver(FormSchema),
+  });
 
-  const handleChange = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'login':
-        return setLogin(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
+  const onSubmit = async data => {
+    const { login, password } = data;
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    dispatch(authOperations.logIn({ login, password }));
-    // setLogin('');
-    // setPassword('');
+    const { payload } = await dispatch(
+      authOperations.logIn({ login, password }),
+    );
+
+    payload
+      ? toast.error(`${payload}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        })
+      : toast.error(`Что-то пошло не так(`, {
+          position: 'top-right',
+          autoClose: 5000,
+          closeOnClick: true,
+          pauseOnHover: true,
+        });
+    reset();
   };
 
   return (
     <Container>
+      <ToastContainer />
       <div className="container col-xl-5 py-5">
         <div className="row align-items-center py-5">
           <form
             className="p-md-5 border bg-light"
             autoComplete="off"
-            onSubmit={handleSubmit}
+            onSubmit={handleSubmit(onSubmit)}
           >
             <h1 className="h3 mb-3 fw-normal">Введите логин и пароль</h1>
             <div className="form-floating mb-3">
@@ -43,8 +59,7 @@ export default function AuthPage() {
                 name="login"
                 className="form-control"
                 id="floatingInput"
-                value={login}
-                onChange={handleChange}
+                {...register('login', { required: true })}
                 placeholder="login"
               />
               <label htmlFor="floatingInput">Логин</label>
@@ -55,8 +70,7 @@ export default function AuthPage() {
                 name="password"
                 className="form-control"
                 id="floatingPassword"
-                value={password}
-                onChange={handleChange}
+                {...register('password', { required: true })}
                 placeholder="Password"
               />
               <label htmlFor="floatingPassword">Пароль</label>

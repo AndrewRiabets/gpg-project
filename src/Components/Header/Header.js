@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import Navigation from './Navigation';
 import UserMenu from './UserMenu';
-import authSelectors from '../../redux/auth/auth-selectors';
+import { getIsLoggedIn } from '../../redux/auth/auth-selectors';
 
 const styles = {
   header: {
@@ -14,7 +14,7 @@ const styles = {
 };
 
 export default function Header() {
-  const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
+  const isLoggedIn = useSelector(getIsLoggedIn);
   return (
     <>
       <header style={styles.header}>

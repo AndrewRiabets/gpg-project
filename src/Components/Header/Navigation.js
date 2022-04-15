@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import authSelectors from '../../redux/auth/auth-selectors';
+import { getUserRole } from '../../redux/auth/auth-selectors';
 
 const styles = {
   link: {
@@ -17,7 +17,7 @@ const styles = {
 };
 
 const Navigation = () => {
-  const userRole = useSelector(authSelectors.getUserRole);
+  const userRole = useSelector(getUserRole);
   return (
     <div>
       <NavLink
@@ -27,7 +27,7 @@ const Navigation = () => {
       >
         Главная
       </NavLink>
-      {userRole === 'accountant' && (
+      {userRole === 'администратор' && (
         <NavLink
           to={{ pathname: `/admin` }}
           style={styles.link}

@@ -10,8 +10,12 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import usersReduser from './users/user-reducer';
+import companyReducer from './companies/company-reducer';
 // import newReportReducer from './createNewReport/newReport-reducer';
-import users from './auth/auth-slice';
+import auth from './auth/auth-slice';
+import { usersAPI } from './services/usersAPI';
+import { companiesAPI } from './services/companiesAPI';
 
 const authPersistConfig = {
   key: 'Users',
@@ -21,8 +25,12 @@ const authPersistConfig = {
 
 const store = configureStore({
   reducer: {
+    auth: persistReducer(authPersistConfig, auth),
+    users: usersReduser,
+    companies: companyReducer,
     // newReport: persistReducer(persistConfig, newReportReducer),
-    auth: persistReducer(authPersistConfig, users),
+    [usersAPI.reducerPath]: usersAPI.reducer,
+    [companiesAPI.reducerPath]: companiesAPI.reducer,
   },
   devTools: process.env.NODE_ENV === 'development',
   middleware: getDefaultMiddleware =>
@@ -30,7 +38,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(),
+    }).concat(usersAPI.middleware, companiesAPI.middleware),
 });
 
 const persistor = persistStore(store);

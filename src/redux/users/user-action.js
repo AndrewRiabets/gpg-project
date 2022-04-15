@@ -1,3 +1,4 @@
-import { createAction } from '@reduxjs/toolkit'
+import { createAction } from '@reduxjs/toolkit';
 
-export const createUser = createAction("user/createUser")
+export const getAllUsers = createAction('user/getAllUsers');
+export const createUser = createAction('user/createUser');

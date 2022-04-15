@@ -1,9 +1,14 @@
-import { createReducer } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
-import * as actions from "./user-action";
+import { createReducer } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import * as actions from './user-action';
 
-const users = createReducer([], {
-    [actions.createUser]: (state, { payload }) => [payload, ...state]
+const initialState = {
+  users: [],
+};
+
+const allUsers = createReducer(initialState.users, {
+  [actions.getAllUsers]: (_, { payload }) => payload,
+  [actions.createUser]: (state, { payload }) => [payload, ...state],
 });
 
-export default combineReducers({users});
+export default combineReducers({ allUsers });
