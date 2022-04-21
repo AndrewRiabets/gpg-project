@@ -1,37 +1,45 @@
-import React, { useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { getAllUsers } from '../../../redux/users/user-selector';
-// import { useFetchAllUsersMutation } from '../../../redux/services/usersAPI';
-// import { getToken } from '../../../redux/auth/auth-selectors';
+
+import UserCompaniesList from './UserCompaniesList';
+
+import style from './Users.module.css';
 
 const UsersList = () => {
-  //   const [fetchAllUsers, { data }] = useFetchAllUsersMutation();
+  const [userId, setUserId] = useState('');
+  const [userCompaniesListRender, setUserCompaniesListRender] = useState(false);
+
   const allUsers = useSelector(getAllUsers);
-  //   const token = useSelector(getToken);
-  const dispatch = useDispatch();
 
-  //   const getAllusers = useCallback(async () => {
-  //     try {
-  //       const response = await fetchAllUsers(token);
-  //       console.log(response);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }, [token, fetchAllUsers]);
+  const btnCompanyToggle = e => {
+    setUserId(`${e.target.value}`);
+  };
 
-  //   useEffect(() => {
-  //     getAllusers();
-  //   }, [getAllusers]);
-  //   console.log(data);
+  const btnCompanyHandler = e => {
+    btnCompanyToggle(e);
+    return userCompaniesListRender && userId === e.target.value
+      ? setUserCompaniesListRender(false)
+      : setUserCompaniesListRender(true);
+  };
 
   return (
     <div>
-      <ul>
+      <ul className={style.usersList}>
         {allUsers.map(el => (
-          <li key={el.id}>{el.name}</li>
+          <li key={el.id} className={style.usersListItem}>
+            <button
+              value={el.id}
+              className={style.userButton}
+              onClick={btnCompanyHandler}
+            >
+              {el.name}
+            </button>
+          </li>
         ))}
       </ul>
+      {userCompaniesListRender && <UserCompaniesList userId={userId} />}
     </div>
   );
 };

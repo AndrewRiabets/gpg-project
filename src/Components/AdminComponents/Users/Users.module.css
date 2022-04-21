@@ -1,0 +1,120 @@
+/* Editing Company style */
+.createUserBtnPCont {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.createUserBtn {
+    background-color: #4CAF50;
+    font-size: 16px;
+    padding: 12px 28px;
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 250px;
+    color: white;
+}
+
+.createUserBtn:hover {
+    background: rgb(53, 167, 110);
+}
+
+.createUserBtn:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+
+
+
+/* Companies list styles */
+.companyListTitle {
+font-family: Roboto;
+font-weight: 400;
+font-size: 42px;
+line-height: 42px;
+text-align: center;
+padding: 10px;
+}
+
+.usersList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+.usersListItem {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.usersListItem:nth-child(5n + 1) {
+    margin-left: 0px;
+}
+
+.userButton {
+    font-weight: 700;
+    width: 188px;
+    height: 70px;
+    color: white;
+    text-decoration: none;
+    padding: 0.8em 1em calc(0.8em + 3px);
+    border-radius: 3px;
+    background: rgb(64, 199, 129);
+    box-shadow: 0 -3px rgb(53, 167, 110) inset;
+    transition: 0.2s;
+    border: none;
+    box-sizing: border-box;
+}
+
+.user:hover {
+    background: rgb(53, 167, 110);
+}
+
+.userButton:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}
+
+/* Companies list styles */
+.companiesList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0px;
+}
+
+.companiesListItem {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.companiesListItem:nth-child(5n + 1) {
+    margin-left: 0px;
+}
+
+.companyButton {
+    font-weight: 700;
+    width: 188px;
+    height: 70px;
+    color: white;
+    text-decoration: none;
+    padding: 0.8em 1em calc(0.8em + 3px);
+    border-radius: 3px;
+    background: rgb(64, 199, 129);
+    box-shadow: 0 -3px rgb(53, 167, 110) inset;
+    transition: 0.2s;
+    border: none;
+    box-sizing: border-box;
+}
+
+.companyButton:hover {
+    background: rgb(53, 167, 110);
+}
+
+.companyButton:active {
+    background: rgb(33, 147, 90);
+    box-shadow: 0 3px rgb(33, 147, 90) inset;
+}

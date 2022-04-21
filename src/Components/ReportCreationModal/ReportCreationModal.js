@@ -30,7 +30,6 @@ const {
 export default function ReportCreationModal({ nameCompany, onClose }) {
   const [reportView, setReportView] = useState(false);
   const [btnReportView, setBtnReportView] = useState(true);
-
   const [newGeneralInfo, setNewGeneralInfo] = useState(generalInfo);
   const [newPrimeAccDocInfo, setPrimeAccDocInfo] = useState(primeAccDocInfo);
   const [newVatInfo, setVatInfo] = useState(vatInfo);

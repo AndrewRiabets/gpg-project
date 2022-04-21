@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import UsersList from './UsersList';
 import CreateUser from './CreateUser';
 
+import style from './Users.module.css';
+
 const EditingUser = () => {
   const [userCreateFormToggle, setCreateFormToggle] = useState(false);
 
@@ -38,7 +40,11 @@ const EditingUser = () => {
   return (
     <div>
       <ToastContainer />
-      <button onClick={createUser}>Создать пользователя </button>
+      <div className={style.createUserBtnPCont}>
+        <button onClick={createUser} className={style.createUserBtn}>
+          Создать пользователя{' '}
+        </button>
+      </div>
       {userCreateFormToggle && (
         <div>
           <CreateUser

@@ -5,7 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import CreateCompany from './CreateCompany';
 import CompaniesList from './CompaniesList';
-// import UsersList from './UsersList';
+
+import style from './Companies.module.css';
 
 const EditingCompany = () => {
   const [userCreateFormToggle, setCreateFormToggle] = useState(false);
@@ -39,7 +40,11 @@ const EditingCompany = () => {
   return (
     <div>
       <ToastContainer />
-      <button onClick={createCompany}>Создать компанию</button>
+      <div className={style.createCompanyBtnPCont}>
+        <button onClick={createCompany} className={style.createCompanyBtn}>
+          Создать компанию
+        </button>
+      </div>
       {userCreateFormToggle && (
         <div>
           <CreateCompany

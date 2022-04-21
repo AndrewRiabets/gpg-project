@@ -1,4 +1,4 @@
-import { React, Suspense, useState } from 'react';
+import { React, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import ReportCreationModal from '../ReportCreationModal/ReportCreationModal';
@@ -7,7 +7,7 @@ import style from './ReportView.module.css';
 function CreatedReports({ name }) {
   const [showModal, setShowModal] = useState(false);
 
-  const onModalToggle = e => {
+  const onModalToggle = () => {
     return showModal ? setShowModal(false) : setShowModal(true);
   };
 

@@ -12,6 +12,8 @@ import Container from '../../Components/Container';
 import EditingUser from '../../Components/AdminComponents/Users/EditingUsers';
 import EditingCompany from '../../Components/AdminComponents/Companies/EditingCompany';
 
+import style from './AdminPage.module.css';
+
 const AdminPage = () => {
   const [userListRender, setUserListRender] = useState(false);
   const [companyListRender, setCompanyListRender] = useState(false);
@@ -74,9 +76,13 @@ const AdminPage = () => {
     <>
       <Container>
         <NavLink to="/main">Назад</NavLink>
-        <div>
-          <button onClick={btnUserHandler}>Пользователи</button>
-          <button onClick={btnCompanyHandler}>Компании</button>
+        <div className={style.primatyBtnCont}>
+          <button onClick={btnUserHandler} className={style.primeBtns}>
+            Пользователи
+          </button>
+          <button onClick={btnCompanyHandler} className={style.primeBtns}>
+            Компании
+          </button>
         </div>
         {userListRender && <EditingUser />}
         {companyListRender && <EditingCompany />}

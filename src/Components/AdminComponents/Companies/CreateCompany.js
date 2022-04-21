@@ -33,7 +33,6 @@ const CreateUser = ({ onToggleForm, showMessage }) => {
     async newCompany => {
       try {
         const response = await createCompany({ token, newCompany });
-        console.log(response);
         showMessage(response);
         dispatch(actions.createCompany(response.data));
         onToggleForm(false);
