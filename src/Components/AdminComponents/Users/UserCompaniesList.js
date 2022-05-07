@@ -22,7 +22,6 @@ const UserCompaniesList = ({ userId }) => {
     getAllUserCompanies();
   }, [getAllUserCompanies]);
 
-  console.log(userCompaniesList);
   return (
     <>
       <div>

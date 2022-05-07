@@ -29,11 +29,15 @@ const salaryInfo = {
 
 const taxInfo = { 1: { taxTitle: '', taxPayDate: '' } };
 
-const reportsInfo = { 1: { reportTitle: '', reportPayDate: '' } };
+const reportsInfo = {
+  1: { reportTitle: '', reportPayDate: '' },
+};
 
 const monthInfo = { closeMonth1c: '', finaceResult: '' };
 
-const additionalServicesInfo = { amountPaymentOrders: '' };
+const additionalServicesInfo = {
+  amountPaymentOrders: '',
+};
 
 const reportItemsList = {
   generalInfo,

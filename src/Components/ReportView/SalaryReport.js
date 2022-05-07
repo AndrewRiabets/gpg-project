@@ -1,52 +1,91 @@
+import { getCompanyReport } from '../../redux/reports/reports-selector';
+import { useSelector } from 'react-redux';
+
 import EditReportBtn from './EditReportBtn';
 
+import style from './ReportView.module.css';
+
 function SalaryReport() {
+  const companyReport = useSelector(getCompanyReport);
+  const options = {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  };
   return (
     <div>
       <EditReportBtn reportPart={'SalaryReport'} text={'Заработная плата'} />
-      <h5>Заработная плата</h5>
+      <h5 className={style.bdrTitle}>Заработная плата</h5>
 
-      <div>
-        <div>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
           <p>
-            Начислена и выплачена зарплата за <b>первую</b> половину месяца в 1С
+            Выплачена зарплата за <b>первую</b> половину месяца:
           </p>
         </div>
         <div>
-          <p>15.03.2022</p>
+          <p>
+            {companyReport.paidSalaryFirstHalf
+              ? new Date(companyReport.paidSalaryFirstHalf).toLocaleString(
+                  'ru',
+                  options,
+                )
+              : 'Нет дланных'}
+          </p>
         </div>
       </div>
 
-      <div>
-        <div>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
           <p>
-            Созданы платежи на ЗП за <b>первую</b> половину месяца
+            Созданы платежи на ЗП за <b>первую</b> половину месяца:
           </p>
         </div>
         <div>
-          <p>15.03.2022</p>
+          <p>
+            {companyReport.createdPayFirstHalf
+              ? new Date(companyReport.createdPayFirstHalf).toLocaleString(
+                  'ru',
+                  options,
+                )
+              : 'Нет дланных'}
+          </p>
         </div>
       </div>
 
-      <div>
-        <div>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
           <p>
-            Начислена и выплачена зарплата за <b>вторую</b> половину месяца в 1С
+            Выплачена зарплата за <b>вторую</b> половину месяца:
           </p>
         </div>
         <div>
-          <p>31.03.2022</p>
+          <p>
+            {companyReport.paidSalarySecondtHalf
+              ? new Date(companyReport.paidSalarySecondtHalf).toLocaleString(
+                  'ru',
+                  options,
+                )
+              : 'Нет дланных'}
+          </p>
         </div>
       </div>
 
-      <div>
-        <div>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
           <p>
-            Созданы платежи на ЗП за <b>вторую</b> половину месяца
+            Созданы платежи на ЗП за <b>вторую</b> половину месяца:
           </p>
         </div>
         <div>
-          <p>31.03.2022</p>
+          <p>
+            {companyReport.createdPaySecondtHalf
+              ? new Date(companyReport.createdPaySecondtHalf).toLocaleString(
+                  'ru',
+                  options,
+                )
+              : 'Нет дланных'}
+          </p>
         </div>
       </div>
     </div>

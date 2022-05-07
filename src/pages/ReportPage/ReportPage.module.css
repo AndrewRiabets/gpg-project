@@ -1,0 +1,38 @@
+.reportTitle  {
+    width: auto;
+    margin: 15px auto;
+    letter-spacing: 2px;
+    font-family: 'Merriweather';
+    font-size: 20px;
+    letter-spacing: 1px;
+    max-width: 520px;
+    position: relative;
+    display: inline-block;
+    color: #465457;
+}
+
+.reportTitle::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -25px;
+    width: 30px;
+    height: 20px;
+    border-top: 2px solid #fed57b;
+    border-left: 2px solid #fed57b;
+}
+
+.reportTitle::after {
+    content: "";
+    position: absolute;
+    bottom: 0%;
+    right: -25px;
+    width: 30px;
+    height: 20px;
+    border-bottom: 2px solid #fed57b;
+    border-right: 2px solid #fed57b;
+}
+
+.bdrField {
+    display: flex;
+}

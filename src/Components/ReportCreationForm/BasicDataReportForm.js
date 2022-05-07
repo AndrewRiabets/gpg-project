@@ -1,16 +1,25 @@
-import { connect } from "react-redux";
-import * as actions from '../../redux/createNewReport/newReport-action'
-
+import reportItemsList from '../../helpers/reportItemslist';
 
 function BasicDataReportForm({ handleChange, value }) {
-  const newGeneralInfo = value;
-
+  let newGeneralInfo = value || reportItemsList.generalInfo;
+  // !companyReport
+  //   ? (newGeneralInfo = reportItemsList.generalInfo)
+  //   : (newGeneralInfo = {
+  //       month: companyReport.date,
+  //       taxSystem: companyReport.taxSystem,
+  //       emplBeginMonth: companyReport.emplBeginMonth,
+  //       emplEndMonth: companyReport.emplEndMonth,
+  //       firstSalaryDay: companyReport.firstSalaryDay,
+  //       secondSalaryDay: companyReport.secondSalaryDay,
+  //     });
+  console.log(value);
   const handleReportItem = e => {
     const value = e.target.value;
     const reportItemId = e.target.id;
     newGeneralInfo[reportItemId] = value;
     handleChange(newGeneralInfo);
   };
+
   return (
     <div>
       <h5>Общая информация</h5>
@@ -20,9 +29,12 @@ function BasicDataReportForm({ handleChange, value }) {
           <input
             type="month"
             min="2022-03"
-            max="2023-12"
             onChange={handleReportItem}
             id="month"
+            {...(value &&
+              value.month && {
+                defaultValue: `${value.month.substr(0, 7)}`,
+              })}
           />
         </label>
       </div>
@@ -33,6 +45,9 @@ function BasicDataReportForm({ handleChange, value }) {
           name="taxationSystems"
           id="taxSystem"
           onChange={handleReportItem}
+          {...(value && {
+            defaultValue: `${value.taxSystem}`,
+          })}
           required
         >
           <option value="Общая система С НДС">Общая система С НДС</option>
@@ -53,12 +68,14 @@ function BasicDataReportForm({ handleChange, value }) {
         <label>
           Количество наемных сотрудников на начало месяца
           <input
-            // className={style.input__field}
             onChange={handleReportItem}
             id={'emplBeginMonth'}
             type="text"
             name="employeeBeginingMonth"
             title="Только цифры"
+            {...(value && {
+              defaultValue: `${value.emplBeginMonth}`,
+            })}
             required
           />
         </label>
@@ -73,6 +90,9 @@ function BasicDataReportForm({ handleChange, value }) {
             id={'emplEndMonth'}
             type="text"
             title="Только цифры"
+            {...(value && {
+              defaultValue: `${value.emplEndMonth}`,
+            })}
           />
         </label>
       </div>
@@ -88,6 +108,9 @@ function BasicDataReportForm({ handleChange, value }) {
             type="text"
             name="prepaid"
             title="Только цифры"
+            {...(value && {
+              defaultValue: `${value.firstSalaryDay}`,
+            })}
             required
           />
         </label>
@@ -100,6 +123,9 @@ function BasicDataReportForm({ handleChange, value }) {
             type="text"
             name="salary"
             title="Только цифры"
+            {...(value && {
+              defaultValue: `${value.secondSalaryDay}`,
+            })}
             required
           />
         </label>
@@ -108,15 +134,4 @@ function BasicDataReportForm({ handleChange, value }) {
   );
 }
 
-
-// const mapStateToProps = state => {
-//   return {
-//     value: state.BasicDataReportForm
-//   }
-// }
-
-const mapDispatchToProps = dispatch => ({
-  handleReportItem: e => dispatch(actions.generalInfo(e))
-})
-
-export default connect(null, mapDispatchToProps)(BasicDataReportForm) ;
+export default BasicDataReportForm;

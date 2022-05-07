@@ -44,11 +44,11 @@ const CreateUser = ({ onToggleForm, showMessage }) => {
   );
 
   const onSubmit = data => {
-    const { name, UserId } = data;
+    const { name, userId } = data;
 
     const newCompany = {
       name,
-      UserId,
+      userId,
     };
     postNewCompany(newCompany);
 
@@ -84,7 +84,7 @@ const CreateUser = ({ onToggleForm, showMessage }) => {
                 id="accountant"
                 placeholder="Ответсвенный бухгалтер"
                 defaultValue={''}
-                {...register('UserId')}
+                {...register('userId')}
               >
                 {users.map(el => (
                   <option key={el.id} value={el.id}>{`${el.name}`}</option>

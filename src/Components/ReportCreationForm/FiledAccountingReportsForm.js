@@ -1,16 +1,28 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import reportItemsList from '../../helpers/reportItemslist';
 import uniqid from 'uniqid';
 
 function FiledAccountingReportsForm({ handleChange, value }) {
-  const [list, setList] = useState([1]);
+  const [list, setList] = useState(
+    !value ? [1] : Object.keys(value).map(el => Number(el)),
+  );
+  const [mountStatus, setMountStatus] = useState(false);
+  const reportsInfo = value || reportItemsList.reportsInfo;
 
-  localStorage.setItem('1-reportTitle', '');
-  localStorage.setItem('1-reportPayDate', '');
-
-  const reportsInfo = value;
+  useEffect(() => {
+    setMountStatus(true);
+    localStorage.setItem('1-reportTitle', '');
+    localStorage.setItem('1-reportPayDate', '');
+  }, [mountStatus]);
 
   const handleReportItem = e => {
-    const value = e.target.value;
+    let value;
+    const valueValidation = e.target.value;
+    if (valueValidation.length === 10 && valueValidation.includes(202)) {
+      value = new Date(e.target.value);
+    } else {
+      value = e.target.value;
+    }
     const reportItemId = e.target.id;
     const data = e.target.dataset.report;
     const taxSample = { reportTitle: '', reportPayDate: '' };
@@ -42,6 +54,7 @@ function FiledAccountingReportsForm({ handleChange, value }) {
       localStorage.removeItem(`${list.length}-reportTitle`);
       localStorage.removeItem(`${list.length}-reportPayDate`);
       delete reportsInfo[list.length];
+
       const newListDel = list.slice(0, -1);
       setList(newListDel);
     }
@@ -63,7 +76,15 @@ function FiledAccountingReportsForm({ handleChange, value }) {
                 onChange={handleReportItem}
                 id="reportTitle"
                 data-report={item}
-                value={window.localStorage.getItem(`${item}-reportTitle`)}
+                {...(value && value[item]
+                  ? {
+                      defaultValue: `${value[item].reportTitle}`,
+                    }
+                  : {
+                      defaultValue: `${window.localStorage.getItem(
+                        `${item}-reportTitle`,
+                      )}`,
+                    })}
               ></input>
               <input
                 key={uniqid()}
@@ -73,7 +94,18 @@ function FiledAccountingReportsForm({ handleChange, value }) {
                 onChange={handleReportItem}
                 id="reportPayDate"
                 data-report={item}
-                value={window.localStorage.getItem(`${item}-reportPayDate`)}
+                {...(value && value[item] && value[item].reportPayDate
+                  ? {
+                      defaultValue: `${value[item].reportPayDate.substr(
+                        0,
+                        10,
+                      )}`,
+                    }
+                  : {
+                      defaultValue: `${window.localStorage.getItem(
+                        `${item}-reportPayDate`,
+                      )}`,
+                    })}
                 // className={style.input__field}
               />
             </li>

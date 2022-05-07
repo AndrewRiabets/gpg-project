@@ -3,9 +3,9 @@ import { useState } from 'react';
 import ReportEditModal from '../ReportEditModal/ReportEditModal';
 
 export default function EditReportBtn({ reportPart, text }) {
-  console.log(reportPart);
+  // console.log(reportPart);
   const [showModal, setShowModal] = useState(false);
-  const onModalToggle = e => {
+  const onModalToggle = () => {
     return showModal ? setShowModal(false) : setShowModal(true);
   };
   return (
@@ -19,7 +19,6 @@ export default function EditReportBtn({ reportPart, text }) {
         <ReportEditModal
           reportPart={reportPart}
           text={text}
-          //   nameCompany={name}
           onClose={onModalToggle}
         />
       )}

@@ -1,5 +1,14 @@
+import reportItemsList from '../../helpers/reportItemslist';
+
 function PrimaryAccountingDocReportForm({ handleChange, value }) {
-  const newPrimeAccDocInfo = value;
+  let newPrimeAccDocInfo = value || reportItemsList.generalInfo;
+  // !companyReport
+  //   ? (newPrimeAccDocInfo = reportItemsList.generalInfo)
+  //   : (newPrimeAccDocInfo = {
+  //       firstHalfStatement: companyReport.firstHalfStatement,
+  //       secondHalfStatement: companyReport.secondHalfStatement,
+  //       primaryDocCompleted: companyReport.primaryDocCompleted,
+  //     });
 
   const handleReportItem = e => {
     const value = e.target.value;
@@ -17,6 +26,10 @@ function PrimaryAccountingDocReportForm({ handleChange, value }) {
             type="date"
             onChange={handleReportItem}
             id="firstHalfStatement"
+            {...(value &&
+              value.firstHalfStatement && {
+                defaultValue: `${value.firstHalfStatement.substr(0, 10)}`,
+              })}
           />
         </label>
       </div>
@@ -30,6 +43,10 @@ function PrimaryAccountingDocReportForm({ handleChange, value }) {
             max="2024-12-31"
             onChange={handleReportItem}
             id="secondHalfStatement"
+            {...(value &&
+              value.secondHalfStatement && {
+                defaultValue: `${value.secondHalfStatement.substr(0, 10)}`,
+              })}
           />
         </label>
       </div>
@@ -43,6 +60,10 @@ function PrimaryAccountingDocReportForm({ handleChange, value }) {
             max="2024-12-31"
             onChange={handleReportItem}
             id="primaryDocCompleted"
+            {...(value &&
+              value.primaryDocCompleted && {
+                defaultValue: `${value.primaryDocCompleted.substr(0, 10)}`,
+              })}
           />
         </label>
       </div>

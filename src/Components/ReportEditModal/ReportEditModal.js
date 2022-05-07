@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
-
+import { useSelector } from 'react-redux';
+import { getCompanyReport } from '../../redux/reports/reports-selector';
+import getReportData from '../../helpers/forEditReportItemList';
 import styles from './ReportEditModal.module.css';
 
 import BasicDataReportForm from '../ReportCreationForm/BasicDataReportForm';
@@ -15,6 +17,32 @@ import AdditionalServicesReportForm from '../ReportCreationForm/AdditionalServic
 const modalRoot = document.querySelector('#modal-editReport-root');
 
 export default function ReportEditModal({ reportPart, text, onClose }) {
+  const companyReport = useSelector(getCompanyReport);
+  const [newGeneralInfo, setNewGeneralInfo] = useState(
+    getReportData(companyReport, 'generalInfo'),
+  );
+  const [newPrimeAccDocInfo, setPrimeAccDocInfo] = useState(
+    getReportData(companyReport, 'primeAccDocInfo'),
+  );
+  const [newVatInfo, setVatInfo] = useState(
+    getReportData(companyReport, 'vatInfo'),
+  );
+  const [newSalaryInfo, setSalaryInfo] = useState(
+    getReportData(companyReport, 'salaryInfo'),
+  );
+  const [newTaxInfo, setTaxInfo] = useState(
+    getReportData(companyReport, 'taxInfo'),
+  );
+  const [newReportInfo, setReportInfo] = useState(
+    getReportData(companyReport, 'reportsInfo'),
+  );
+  const [newMonthInfo, setMonthInfo] = useState(
+    getReportData(companyReport, 'monthInfo'),
+  );
+  const [newAdditionalServicesInfo, setAdditionalServicesInfo] = useState(
+    getReportData(companyReport, 'additionalServicesInfo'),
+  );
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -37,34 +65,81 @@ export default function ReportEditModal({ reportPart, text, onClose }) {
   let component;
   switch (reportPart) {
     case 'BasicDataReport':
-      component = <BasicDataReportForm />;
+      component = (
+        <BasicDataReportForm
+          handleChange={setNewGeneralInfo}
+          value={newGeneralInfo}
+        />
+      );
       break;
     case 'PrimaryAccountingDocReport':
-      component = <PrimaryAccountingDocReportForm />;
+      component = (
+        <PrimaryAccountingDocReportForm
+          handleChange={setPrimeAccDocInfo}
+          value={newPrimeAccDocInfo}
+        />
+      );
       break;
     case 'VatReport':
-      component = <VatReportForm />;
+      component = (
+        <VatReportForm handleChange={setVatInfo} value={newVatInfo} />
+      );
       break;
     case 'SalaryReport':
-      component = <SalaryReportForm />;
+      component = (
+        <SalaryReportForm handleChange={setSalaryInfo} value={newSalaryInfo} />
+      );
       break;
     case 'TaxesReport':
-      component = <TaxesReportForm />;
+      component = (
+        <TaxesReportForm handleChange={setTaxInfo} value={newTaxInfo} />
+      );
       break;
-
     case 'FiledAccountingReports':
-      component = <FiledAccountingReportsForm />;
+      component = (
+        <FiledAccountingReportsForm
+          handleChange={setReportInfo}
+          value={newReportInfo}
+        />
+      );
       break;
     case 'ClosingMonthReport':
-      component = <ClosingMonthReportForm />;
+      component = (
+        <ClosingMonthReportForm
+          handleChange={setMonthInfo}
+          value={newMonthInfo}
+        />
+      );
       break;
     case 'AdditionalServicesReport':
-      component = <AdditionalServicesReportForm />;
+      component = (
+        <AdditionalServicesReportForm
+          handleChange={setAdditionalServicesInfo}
+          value={newAdditionalServicesInfo}
+        />
+      );
       break;
 
     default:
       component = 'ERROR';
   }
+
+  const formSubmit = e => {
+    e.preventDefault();
+
+    const updatedReport = {
+      ...newGeneralInfo,
+      ...newPrimeAccDocInfo,
+      ...newVatInfo,
+      ...newSalaryInfo,
+      newTaxInfo,
+      newReportInfo,
+      ...newMonthInfo,
+      ...newAdditionalServicesInfo,
+    };
+    console.log(updatedReport);
+    // postUpdatedReport(updateReport);
+  };
 
   return createPortal(
     <div className={styles.overlay} onClick={handleOverlayClick}>
@@ -75,7 +150,7 @@ export default function ReportEditModal({ reportPart, text, onClose }) {
             X
           </button>
         </div>
-        <form>
+        <form onSubmit={formSubmit}>
           <div className={styles.modalBody}>{component}</div>
           <div className={styles.modalFooter}>
             <button className="btn btn-success" type="submit">

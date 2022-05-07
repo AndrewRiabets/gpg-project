@@ -1,57 +1,81 @@
+import { getCompanyReport } from '../../redux/reports/reports-selector';
+import { useSelector } from 'react-redux';
+
 import EditReportBtn from './EditReportBtn';
 
+import style from './ReportView.module.css';
+
 function BasicDataReport() {
+  const companyReport = useSelector(getCompanyReport);
   return (
     <div>
       <EditReportBtn reportPart={'BasicDataReport'} text={'Общая информация'} />
-      <h5>Общая информация</h5>
-
-      <div>
-        <div>
-          <p>Месяц</p>
+      <h5 className={style.bdrTitle}>Общая информация</h5>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
+          <p>Название:</p>
         </div>
         <div>
-          <p>Март</p>
+          <p>{companyReport.nameCompany}</p>
         </div>
       </div>
-
-      <div>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
+          <p>Месяц:</p>
+        </div>
         <div>
+          <p>
+            {new Date(companyReport.date).toLocaleString('ru', {
+              month: 'long',
+              year: 'numeric',
+            })}
+          </p>
+        </div>
+      </div>
+      <div className={style.bdrField}>
+        <div className={style.bdrFieldName}>
           <p>Система налогообложения</p>
         </div>
         <div>
-          <p>Общая система С НДС</p>
+          <p>{companyReport.taxSystem}</p>
         </div>
       </div>
 
       <div>
-        <div>
-          <p>Количество наемных сотрудников на начало месяца</p>
+        <div className={style.bdrField}>
+          <div className={style.bdrFieldName}>
+            <p>Количество наемных сотрудников на начало месяца</p>
+          </div>
+          <div>
+            <p>{companyReport.emplBeginMonth}</p>
+          </div>
         </div>
-        <div>
-          <p>1</p>
-        </div>
-        <div>
-          <p>Количество наемных сотрудников на конец месяца</p>
-        </div>
-        <div>
-          <p>1</p>
+        <div className={style.bdrField}>
+          <div className={style.bdrFieldName}>
+            <p>Количество наемных сотрудников на конец месяца</p>
+          </div>
+          <div>
+            <p>{companyReport.emplEndMonth || 'Нет дланных'}</p>
+          </div>
         </div>
       </div>
-
       <div>
         <p>День выплаты зарплаты:</p>
-        <div>
-          <p>за первую половину месяца</p>
+        <div className={style.bdrField}>
+          <div className={style.bdrFieldName}>
+            <p>за первую половину месяца</p>
+          </div>
+          <div>
+            <p>{companyReport.firstSalaryDay || 'Нет дланных'}</p>
+          </div>
         </div>
-        <div>
-          <p>15</p>
-        </div>
-        <div>
-          <p>за вторую половину месяца</p>
-        </div>
-        <div>
-          <p>последний рабочий день месяца</p>
+        <div className={style.bdrField}>
+          <div className={style.bdrFieldName}>
+            <p>за вторую половину месяца</p>
+          </div>
+          <div>
+            <p>{companyReport.secondSalaryDay || 'Нет дланных'}</p>
+          </div>
         </div>
       </div>
     </div>

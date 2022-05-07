@@ -4,20 +4,13 @@ import Navigation from './Navigation';
 import UserMenu from './UserMenu';
 import { getIsLoggedIn } from '../../redux/auth/auth-selectors';
 
-const styles = {
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    borderBottom: '1px solid #2A363B',
-  },
-};
+import style from './Header.module.css';
 
 export default function Header() {
   const isLoggedIn = useSelector(getIsLoggedIn);
   return (
     <>
-      <header style={styles.header}>
+      <header className={style.header}>
         <Navigation />
         {isLoggedIn && <UserMenu />}
       </header>

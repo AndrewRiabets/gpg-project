@@ -1,5 +1,7 @@
+import reportItemsList from '../../helpers/reportItemslist';
+
 function AdditionalServicesReportForm({ handleChange, value }) {
-  const newAdditionalServicesInfo = value;
+  const newAdditionalServicesInfo = value || reportItemsList.generalInfo;
 
   const handleAdittionalServiceItem = e => {
     const value = e.target.value;
@@ -20,8 +22,10 @@ function AdditionalServicesReportForm({ handleChange, value }) {
             onChange={handleAdittionalServiceItem}
             id="amountPaymentOrders"
             type="text"
-            name="amountPaymentOrders"
             title="Только цифры"
+            {...(value && {
+              defaultValue: `${value.amountPaymentOrders}`,
+            })}
           />
         </label>
       </div>

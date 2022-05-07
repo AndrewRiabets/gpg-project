@@ -21,29 +21,31 @@ function App() {
   });
   return (
     <>
-      <Header />
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Routes>
-          <Route
-            exact
-            path={routes.auth}
-            element={<PublicRoute restricted component={AuthPage} />}
-          ></Route>
-          <Route
-            path={routes.main}
-            element={<PrivateRoute component={MainPage} />}
-          ></Route>
-          <Route
-            path={routes.report}
-            element={<PrivateRoute component={ReportPage} />}
-          ></Route>
-          <Route
-            path={routes.admin}
-            element={<PrivateRoute component={AdminPage} />}
-          ></Route>
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </Suspense>
+      <div>
+        <Header />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Routes>
+            <Route
+              exact
+              path={routes.auth}
+              element={<PublicRoute restricted component={AuthPage} />}
+            ></Route>
+            <Route
+              path={routes.main}
+              element={<PrivateRoute component={MainPage} />}
+            ></Route>
+            <Route
+              path={routes.report}
+              element={<PrivateRoute component={ReportPage} />}
+            ></Route>
+            <Route
+              path={routes.admin}
+              element={<PrivateRoute component={AdminPage} />}
+            ></Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Suspense>
+      </div>
     </>
   );
 }

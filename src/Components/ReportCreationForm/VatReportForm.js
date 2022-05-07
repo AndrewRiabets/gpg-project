@@ -1,5 +1,7 @@
+import reportItemsList from '../../helpers/reportItemslist';
+
 function VatReportForm({ handleChange, value }) {
-  const vatInfo = value;
+  const vatInfo = value || reportItemsList.generalInfo;
 
   const handleReportItem = e => {
     const value = e.target.value;
@@ -21,7 +23,9 @@ function VatReportForm({ handleChange, value }) {
           id="firstHalfToRegVAT"
           type="text"
           title="Только цифры"
-          required
+          {...(value && {
+            defaultValue: `${value.firstHalfToRegVAT}`,
+          })}
         />
         зарегистрировано (шт.)
         <input
@@ -29,7 +33,9 @@ function VatReportForm({ handleChange, value }) {
           id="firstHalfRegistratedVAT"
           type="text"
           title="Только цифры"
-          required
+          {...(value && {
+            defaultValue: `${value.firstHalfRegistratedVAT}`,
+          })}
         />
       </label>
 
@@ -43,7 +49,9 @@ function VatReportForm({ handleChange, value }) {
           id="secHalfToRegVAT"
           type="text"
           title="Только цифры"
-          required
+          {...(value && {
+            defaultValue: `${value.secHalfToRegVAT}`,
+          })}
         />
         зарегистрировано (шт.)
         <input
@@ -51,7 +59,9 @@ function VatReportForm({ handleChange, value }) {
           id="secHalfRegistratedVAT"
           type="text"
           title="Только цифры"
-          required
+          {...(value && {
+            defaultValue: `${value.secHalfRegistratedVAT}`,
+          })}
         />
       </label>
     </div>

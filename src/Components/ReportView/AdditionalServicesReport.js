@@ -1,20 +1,26 @@
+import { getCompanyReport } from '../../redux/reports/reports-selector';
+import { useSelector } from 'react-redux';
+
 import EditReportBtn from './EditReportBtn';
 
+import style from './ReportView.module.css';
+
 function AdditionalServicesReport() {
+  const companyReport = useSelector(getCompanyReport);
   return (
     <div>
       <EditReportBtn
         reportPart={'AdditionalServicesReport'}
         text={'Дополнитеьные услуги'}
       />
-      <h5>Дополнитеьные услуги</h5>
+      <h5 className={style.bdrTitle}>Дополнитеьные услуги</h5>
       <ul>
-        <li>
-          <div>
-            <p>Количество созданных платежных поручений за месяц</p>
+        <li className={style.bdrField}>
+          <div className={style.bdrFieldName}>
+            <p>Количество созданных платежных поручений за месяц:</p>
           </div>
           <div>
-            <p>10</p>
+            <p>{companyReport.amountPaymentOrders || 'Нет дланных'}</p>
           </div>
         </li>
       </ul>

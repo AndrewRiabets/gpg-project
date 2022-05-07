@@ -1,16 +1,45 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import reportItemsList from '../../helpers/reportItemslist';
 import uniqid from 'uniqid';
 
 function TaxesReportForm({ handleChange, value }) {
-  const [list, setList] = useState([1]);
+  // console.log('обновился компонент ТАХ');
+  // const [reportValue, setReportValue] = useState(value);
+  // value && JSON.parse(JSON.stringify(value)),
+  // );
+  const [list, setList] = useState(
+    !value ? [1] : Object.keys(value).map(el => Number(el)),
+  );
+  const [mountStatus, setMountStatus] = useState(false);
+  let taxInfo = value || reportItemsList.taxInfo;
 
-  localStorage.setItem('1-taxTitle', '');
-  localStorage.setItem('1-taxPayDate', '');
+  // ? JSON.parse(JSON.stringify(value))
+  // : reportItemsList.taxInfo;
+  // : reportItemsList.taxInfo;
+  console.log(taxInfo);
+  // if (value) {
+  //   for (let key in JSON.parse(JSON.stringify(value))) {
+  //     taxInfo[key] = value[key];
+  //   }
+  // } else {
+  //   taxInfo = reportItemsList.taxInfo;
+  // }
 
-  const taxInfo = value;
+  useEffect(() => {
+    setMountStatus(true);
+    localStorage.setItem('1-taxTitle', '');
+    localStorage.setItem('1-taxPayDate', '');
+  }, [mountStatus]);
 
   const handleTaxItem = e => {
-    const value = e.target.value;
+    let value;
+    const valueValidation = e.target.value;
+    console.log(valueValidation);
+    if (valueValidation.length === 10 && valueValidation.includes(202)) {
+      value = new Date(e.target.value);
+    } else {
+      value = e.target.value;
+    }
     const reportItemId = e.target.id;
     const data = e.target.dataset.tax;
     const taxSample = { taxTitle: '', taxPayDate: '' };
@@ -28,7 +57,7 @@ function TaxesReportForm({ handleChange, value }) {
     }
   };
 
-  const addlistCounter = e => {
+  const addlistCounter = () => {
     if (list.length <= 5) {
       const newListAdd = list.concat(list[list.length - 1] + 1);
       setList(newListAdd);
@@ -42,6 +71,7 @@ function TaxesReportForm({ handleChange, value }) {
       localStorage.removeItem(`${list.length}-taxTitle`);
       localStorage.removeItem(`${list.length}-taxPayDate`);
       delete taxInfo[list.length];
+      handleChange(taxInfo);
       const newListDel = list.slice(0, -1);
       setList(newListDel);
     }
@@ -63,8 +93,15 @@ function TaxesReportForm({ handleChange, value }) {
                 type="text"
                 name="taxName"
                 data-tax={item}
-                required
-                value={window.localStorage.getItem(`${item}-taxTitle`)}
+                {...(value && value[item]
+                  ? {
+                      defaultValue: `${value[item].taxTitle}`,
+                    }
+                  : {
+                      defaultValue: `${window.localStorage.getItem(
+                        `${item}-taxTitle`,
+                      )}`,
+                    })}
               />
               <input
                 key={uniqid()}
@@ -75,7 +112,15 @@ function TaxesReportForm({ handleChange, value }) {
                 onChange={handleTaxItem}
                 id="taxPayDate"
                 data-tax={item}
-                value={window.localStorage.getItem(`${item}-taxPayDate`)}
+                {...(value && value[item] && value[item].taxPayDate
+                  ? {
+                      defaultValue: `${value[item].taxPayDate.substr(0, 10)}`,
+                    }
+                  : {
+                      defaultValue: `${window.localStorage.getItem(
+                        `${item}-taxPayDate`,
+                      )}`,
+                    })}
               />
             </li>
           ))}

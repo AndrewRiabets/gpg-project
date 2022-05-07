@@ -19,19 +19,12 @@ const MainPage = () => {
   const token = useSelector(getToken);
   const dispatch = useDispatch();
 
-  const sendUserCompaniesInStore = useCallback(
-    response => {
-      dispatch(actions.getUserCompanies(response.data));
-    },
-    [dispatch],
-  );
-
   const getAllUserCompanies = useCallback(async () => {
     try {
       const response = await fetchUserCompanies(token);
-      sendUserCompaniesInStore(response);
+      dispatch(actions.getUserCompanies(response.data));
     } catch (error) {}
-  }, [token, fetchUserCompanies, sendUserCompaniesInStore]);
+  }, [token, dispatch, fetchUserCompanies]);
 
   useEffect(() => {
     getAllUserCompanies();
@@ -72,7 +65,7 @@ const MainPage = () => {
               ))
             )}
           </ul>
-          {companyListRender && <CreatedReports name={companyName} />}
+          {companyListRender && <CreatedReports companyName={companyName} />}
         </div>
       </Container>
     </>

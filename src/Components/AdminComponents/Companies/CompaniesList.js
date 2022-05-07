@@ -87,7 +87,11 @@ const CompaniesList = () => {
         ))}
       </ul>
       {changeAccounterForm && (
-        <ChangeAccounter companyName={companyName} showMessage={showMessage} />
+        <ChangeAccounter
+          companyName={companyName}
+          showMessage={showMessage}
+          showChangeAccounterForm={setChangeAccounterForm}
+        />
       )}
     </div>
   );

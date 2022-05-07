@@ -1,8 +1,11 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
-import styles from './ReportCreationModal.module.css';
+import { getToken } from '../../redux/auth/auth-selectors';
+import { getCompanyReport } from '../../redux/reports/reports-selector';
+import { useCreateReportMutation } from '../../redux/services/reportsAPI';
+import * as actions from '../../redux/reports/reports-action';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
 import BasicDataReportForm from '../ReportCreationForm/BasicDataReportForm';
@@ -14,6 +17,8 @@ import FiledAccountingReportsForm from '../ReportCreationForm/FiledAccountingRep
 import ClosingMonthReportForm from '../ReportCreationForm/ClosingMonthReportForm';
 import AdditionalServicesReportForm from '../ReportCreationForm/AdditionalServicesReportForm';
 import reportItemsList from '../../helpers/reportItemslist';
+
+import styles from './ReportCreationModal.module.css';
 
 const modalRoot = document.querySelector('#modal-root');
 const {
@@ -27,7 +32,11 @@ const {
   additionalServicesInfo,
 } = reportItemsList;
 
-export default function ReportCreationModal({ nameCompany, onClose }) {
+export default function ReportCreationModal({
+  nameCompany,
+  onClose,
+  showMessage,
+}) {
   const [reportView, setReportView] = useState(false);
   const [btnReportView, setBtnReportView] = useState(true);
   const [newGeneralInfo, setNewGeneralInfo] = useState(generalInfo);
@@ -41,12 +50,19 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
     additionalServicesInfo,
   );
 
+  const [createReport] = useCreateReportMutation();
+  const token = useSelector(getToken);
+  const dispatch = useDispatch();
+  dispatch(actions.getReportById([]));
+
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
   });
+
+  useEffect(() => {}, [newGeneralInfo]);
 
   const handleKeyDown = e => {
     if (e.code === 'Escape') {
@@ -60,15 +76,39 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
     }
   };
 
-  const showReportToggle = e => {
+  const showReportToggle = () => {
     reportView ? setReportView(false) : setReportView(true);
     btnReportView ? setBtnReportView(false) : setBtnReportView(true);
   };
 
+  const postNewReport = useCallback(
+    async newReport => {
+      try {
+        const response = await createReport({ token, newReport });
+        showMessage(response);
+        response.data && dispatch(actions.addCompanyReports(response.data));
+        response.data && onClose();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [token, dispatch, showMessage, onClose, createReport],
+  );
+
   const formSubmit = e => {
     e.preventDefault();
-    console.log(newGeneralInfo);
-    console.log(newPrimeAccDocInfo);
+    const newReport = {
+      nameCompany,
+      ...newGeneralInfo,
+      ...newPrimeAccDocInfo,
+      ...newVatInfo,
+      ...newSalaryInfo,
+      newTaxInfo,
+      newReportInfo,
+      ...newMonthInfo,
+      ...newAdditionalServicesInfo,
+    };
+    postNewReport(newReport);
   };
 
   return createPortal(
@@ -86,10 +126,7 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
           </div>
           <form onSubmit={formSubmit}>
             <div className={styles.modalBody}>
-              <BasicDataReportForm
-                handleChange={setNewGeneralInfo}
-                value={newPrimeAccDocInfo}
-              />
+              <BasicDataReportForm handleChange={setNewGeneralInfo} />
               <button type="button" onClick={showReportToggle}>
                 {btnReportView
                   ? 'Показать весь отчет'
@@ -99,28 +136,16 @@ export default function ReportCreationModal({ nameCompany, onClose }) {
                 <div>
                   <PrimaryAccountingDocReportForm
                     handleChange={setPrimeAccDocInfo}
-                    value={newPrimeAccDocInfo}
                   />
-                  <VatReportForm handleChange={setVatInfo} value={newVatInfo} />
-                  <SalaryReportForm
-                    handleChange={setSalaryInfo}
-                    value={newSalaryInfo}
-                  />
-                  <TaxesReportForm
-                    handleChange={setTaxInfo}
-                    value={newTaxInfo}
-                  />
-                  <FiledAccountingReportsForm
-                    handleChange={setReportInfo}
-                    value={newReportInfo}
-                  />
-                  <ClosingMonthReportForm
-                    handleChange={setMonthInfo}
-                    value={newMonthInfo}
-                  />
+                  {generalInfo.taxSystem.includes('С НДС') && (
+                    <VatReportForm handleChange={setVatInfo} />
+                  )}
+                  <SalaryReportForm handleChange={setSalaryInfo} />
+                  <TaxesReportForm handleChange={setTaxInfo} />
+                  <FiledAccountingReportsForm handleChange={setReportInfo} />
+                  <ClosingMonthReportForm handleChange={setMonthInfo} />
                   <AdditionalServicesReportForm
                     handleChange={setAdditionalServicesInfo}
-                    value={newAdditionalServicesInfo}
                   />
                 </div>
               )}

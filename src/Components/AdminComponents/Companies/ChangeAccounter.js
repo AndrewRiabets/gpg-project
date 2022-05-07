@@ -6,7 +6,11 @@ import { useChangeAccounterMutation } from '../../../redux/services/companiesAPI
 import { getToken } from '../../../redux/auth/auth-selectors';
 import { getAllUsers } from '../../../redux/users/user-selector';
 
-const ChangeAccounter = ({ companyName, showMessage }) => {
+const ChangeAccounter = ({
+  companyName,
+  showMessage,
+  showChangeAccounterForm,
+}) => {
   const [changeAccounter] = useChangeAccounterMutation();
   const users = useSelector(getAllUsers);
   const token = useSelector(getToken);
@@ -19,8 +23,8 @@ const ChangeAccounter = ({ companyName, showMessage }) => {
   const changeCompanyAccounter = async newAccounter => {
     try {
       const response = await changeAccounter({ token, newAccounter });
-      console.log(response);
       showMessage(response);
+      showChangeAccounterForm(false);
     } catch (error) {
       console.log(error);
     }

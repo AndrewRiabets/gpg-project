@@ -1,5 +1,7 @@
+import reportItemsList from '../../helpers/reportItemslist';
+
 function ClosingMonthReportForm({ handleChange, value }) {
-  const newMonthInfo = value;
+  const newMonthInfo = value || reportItemsList.generalInfo;
 
   const handleMontInfoItem = e => {
     const value = e.target.value;
@@ -21,6 +23,10 @@ function ClosingMonthReportForm({ handleChange, value }) {
             // className={style.input__field}
             onChange={handleMontInfoItem}
             id="closeMonth1c"
+            {...(value &&
+              value.closeMonth1c && {
+                defaultValue: `${value.closeMonth1c.substr(0, 10)}`,
+              })}
           />
         </label>
       </div>
@@ -35,6 +41,10 @@ function ClosingMonthReportForm({ handleChange, value }) {
             // className={style.input__field}
             onChange={handleMontInfoItem}
             id="finaceResult"
+            {...(value &&
+              value.finaceResult && {
+                defaultValue: `${value.finaceResult.substr(0, 10)}`,
+              })}
           />
         </label>
       </div>
