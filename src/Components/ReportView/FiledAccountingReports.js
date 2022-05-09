@@ -1,5 +1,5 @@
 import uniqid from 'uniqid';
-
+import { useEffect } from 'react';
 import { getCompanyReport } from '../../redux/reports/reports-selector';
 import { useSelector } from 'react-redux';
 
@@ -9,6 +9,7 @@ import style from './ReportView.module.css';
 
 function FiledAccountingReports() {
   const { newReportInfo } = useSelector(getCompanyReport);
+  useEffect(() => {}, [newReportInfo]);
   const options = {
     day: '2-digit',
     month: 'long',

@@ -7,7 +7,7 @@ function FiledAccountingReportsForm({ handleChange, value }) {
     !value ? [1] : Object.keys(value).map(el => Number(el)),
   );
   const [mountStatus, setMountStatus] = useState(false);
-  const reportsInfo = value || reportItemsList.reportsInfo;
+  let reportsInfo = value || reportItemsList.reportsInfo;
 
   useEffect(() => {
     setMountStatus(true);
@@ -54,7 +54,7 @@ function FiledAccountingReportsForm({ handleChange, value }) {
       localStorage.removeItem(`${list.length}-reportTitle`);
       localStorage.removeItem(`${list.length}-reportPayDate`);
       delete reportsInfo[list.length];
-
+      handleChange(reportsInfo);
       const newListDel = list.slice(0, -1);
       setList(newListDel);
     }
@@ -96,10 +96,9 @@ function FiledAccountingReportsForm({ handleChange, value }) {
                 data-report={item}
                 {...(value && value[item] && value[item].reportPayDate
                   ? {
-                      defaultValue: `${value[item].reportPayDate.substr(
-                        0,
-                        10,
-                      )}`,
+                      defaultValue: `${value[item].reportPayDate
+                        .toString()
+                        .substr(0, 10)}`,
                     }
                   : {
                       defaultValue: `${window.localStorage.getItem(

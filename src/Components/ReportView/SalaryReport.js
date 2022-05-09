@@ -30,7 +30,7 @@ function SalaryReport() {
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>
@@ -48,7 +48,7 @@ function SalaryReport() {
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>
@@ -66,7 +66,7 @@ function SalaryReport() {
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>
@@ -84,7 +84,7 @@ function SalaryReport() {
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>

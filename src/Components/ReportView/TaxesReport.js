@@ -6,9 +6,11 @@ import { useSelector } from 'react-redux';
 import EditReportBtn from './EditReportBtn';
 
 import style from './ReportView.module.css';
+import { useEffect } from 'react';
 
 function TaxesReport() {
   const { newTaxInfo } = useSelector(getCompanyReport);
+  useEffect(() => {}, [newTaxInfo]);
   const options = {
     day: '2-digit',
     month: 'long',

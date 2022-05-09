@@ -23,7 +23,7 @@ function VatReport() {
             <p>к регистрации (шт.)</p>
           </div>
           <div>
-            <p>{companyReport.firstHalfToRegVAT || 'Нет дланных'}</p>
+            <p>{companyReport.firstHalfToRegVAT || 'Нет данных'}</p>
           </div>
         </div>
         <div className={style.bdrField}>
@@ -31,7 +31,7 @@ function VatReport() {
             <p>зарегистрировано (шт.)</p>
           </div>
           <div>
-            <p>{companyReport.firstHalfRegistratedVAT || 'Нет дланных'}</p>
+            <p>{companyReport.firstHalfRegistratedVAT || 'Нет данных'}</p>
           </div>
         </div>
       </div>
@@ -47,7 +47,7 @@ function VatReport() {
             <p>к регистрации (шт.)</p>
           </div>
           <div>
-            <p>{companyReport.secHalfToRegVAT || 'Нет дланных'}</p>
+            <p>{companyReport.secHalfToRegVAT || 'Нет данных'}</p>
           </div>
         </div>
         <div className={style.bdrField}>
@@ -55,7 +55,7 @@ function VatReport() {
             <p>зарегистрировано (шт.)</p>
           </div>
           <div>
-            <p>{companyReport.secHalfRegistratedVAT || 'Нет дланных'}</p>
+            <p>{companyReport.secHalfRegistratedVAT || 'Нет данных'}</p>
           </div>
         </div>
       </div>

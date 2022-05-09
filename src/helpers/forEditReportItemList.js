@@ -21,12 +21,11 @@ function getReportData(companyReport, exempl) {
     paidSalarySecondtHalf,
     createdPaySecondtHalf,
     newTaxInfo,
-    newReportsInfo,
+    newReportInfo,
     closeMonth1c,
     finaceResult,
     amountPaymentOrders,
   } = companyReport;
-
   switch (exempl) {
     case 'generalInfo':
       result = {
@@ -62,13 +61,14 @@ function getReportData(companyReport, exempl) {
       };
       break;
     case 'taxInfo':
-      result = newTaxInfo ? JSON.parse(JSON.stringify(newTaxInfo)) : null;
+      result = newTaxInfo
+        ? JSON.parse(JSON.stringify(newTaxInfo))
+        : { 1: { taxTitle: '', taxPayDate: '' } };
       break;
     case 'reportsInfo':
-      console.log(newReportsInfo);
-      result = newReportsInfo
-        ? JSON.parse(JSON.stringify(newReportsInfo))
-        : null;
+      result = newReportInfo
+        ? JSON.parse(JSON.stringify(newReportInfo))
+        : { 1: { reportTitle: '', reportPayDate: '' } };
       break;
     case 'monthInfo':
       result = {

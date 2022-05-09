@@ -12,6 +12,8 @@ function PrimaryAccountingDocReport() {
     month: 'long',
     year: 'numeric',
   };
+  console.log(companyReport);
+  console.log(companyReport.paidSalaryFirstHalf);
   return (
     <div>
       <EditReportBtn
@@ -27,11 +29,11 @@ function PrimaryAccountingDocReport() {
         <div>
           <p>
             {companyReport.firstHalfStatement
-              ? new Date(companyReport.paidSalaryFirstHalf).toLocaleString(
+              ? new Date(companyReport.firstHalfStatement).toLocaleString(
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>
@@ -43,11 +45,11 @@ function PrimaryAccountingDocReport() {
         <div>
           <p>
             {companyReport.secondHalfStatement
-              ? new Date(companyReport.paidSalaryFirstHalf).toLocaleString(
+              ? new Date(companyReport.secondHalfStatement).toLocaleString(
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>
@@ -59,11 +61,11 @@ function PrimaryAccountingDocReport() {
         <div>
           <p>
             {companyReport.primaryDocCompleted
-              ? new Date(companyReport.paidSalaryFirstHalf).toLocaleString(
+              ? new Date(companyReport.primaryDocCompleted).toLocaleString(
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>

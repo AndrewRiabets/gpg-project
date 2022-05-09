@@ -13,14 +13,14 @@ function AdditionalServicesReport() {
         reportPart={'AdditionalServicesReport'}
         text={'Дополнитеьные услуги'}
       />
-      <h5 className={style.bdrTitle}>Дополнитеьные услуги</h5>
+      <h5 className={style.bdrTitle}>Дополнительные услуги</h5>
       <ul>
         <li className={style.bdrField}>
           <div className={style.bdrFieldName}>
             <p>Количество созданных платежных поручений за месяц:</p>
           </div>
           <div>
-            <p>{companyReport.amountPaymentOrders || 'Нет дланных'}</p>
+            <p>{companyReport.amountPaymentOrders || 'Нет данных'}</p>
           </div>
         </li>
       </ul>

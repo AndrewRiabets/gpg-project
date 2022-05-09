@@ -14,5 +14,6 @@ const allCompanyReports = createReducer(initialState.companyReports, {
 
 const companyReport = createReducer(initialState.companyReport, {
   [actions.getReportById]: (_, { payload }) => payload,
+  [actions.updateReport]: (_, { payload }) => payload,
 });
 export default combineReducers({ allCompanyReports, companyReport });

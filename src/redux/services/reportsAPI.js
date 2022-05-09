@@ -40,10 +40,23 @@ export const reportsAPI = createApi({
       }),
       invalidatesTags: ['Reports'],
     }),
+
+    fetchUpdateReport: builder.mutation({
+      query: ({ token, updatedReport }) => ({
+        url: `/update-company-report`,
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: { ...updatedReport },
+      }),
+      invalidatesTags: ['Reports'],
+    }),
   }),
 });
 export const {
   useCreateReportMutation,
   useFetchCompanyReportsMutation,
   useFetchCompanyReportMutation,
+  useFetchUpdateReportMutation,
 } = reportsAPI;

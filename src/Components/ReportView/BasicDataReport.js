@@ -55,7 +55,7 @@ function BasicDataReport() {
             <p>Количество наемных сотрудников на конец месяца</p>
           </div>
           <div>
-            <p>{companyReport.emplEndMonth || 'Нет дланных'}</p>
+            <p>{companyReport.emplEndMonth || 'Нет данных'}</p>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ function BasicDataReport() {
             <p>за первую половину месяца</p>
           </div>
           <div>
-            <p>{companyReport.firstSalaryDay || 'Нет дланных'}</p>
+            <p>{companyReport.firstSalaryDay || 'Нет данных'}</p>
           </div>
         </div>
         <div className={style.bdrField}>
@@ -74,7 +74,7 @@ function BasicDataReport() {
             <p>за вторую половину месяца</p>
           </div>
           <div>
-            <p>{companyReport.secondSalaryDay || 'Нет дланных'}</p>
+            <p>{companyReport.secondSalaryDay || 'Нет данных'}</p>
           </div>
         </div>
       </div>

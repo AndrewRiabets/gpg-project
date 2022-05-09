@@ -31,7 +31,7 @@ function ClosingMonthReport() {
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>
@@ -47,7 +47,7 @@ function ClosingMonthReport() {
                   'ru',
                   options,
                 )
-              : 'Нет дланных'}
+              : 'Нет данных'}
           </p>
         </div>
       </div>

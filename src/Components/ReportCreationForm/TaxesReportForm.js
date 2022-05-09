@@ -3,27 +3,11 @@ import reportItemsList from '../../helpers/reportItemslist';
 import uniqid from 'uniqid';
 
 function TaxesReportForm({ handleChange, value }) {
-  // console.log('обновился компонент ТАХ');
-  // const [reportValue, setReportValue] = useState(value);
-  // value && JSON.parse(JSON.stringify(value)),
-  // );
   const [list, setList] = useState(
     !value ? [1] : Object.keys(value).map(el => Number(el)),
   );
   const [mountStatus, setMountStatus] = useState(false);
   let taxInfo = value || reportItemsList.taxInfo;
-
-  // ? JSON.parse(JSON.stringify(value))
-  // : reportItemsList.taxInfo;
-  // : reportItemsList.taxInfo;
-  console.log(taxInfo);
-  // if (value) {
-  //   for (let key in JSON.parse(JSON.stringify(value))) {
-  //     taxInfo[key] = value[key];
-  //   }
-  // } else {
-  //   taxInfo = reportItemsList.taxInfo;
-  // }
 
   useEffect(() => {
     setMountStatus(true);
@@ -34,7 +18,7 @@ function TaxesReportForm({ handleChange, value }) {
   const handleTaxItem = e => {
     let value;
     const valueValidation = e.target.value;
-    console.log(valueValidation);
+
     if (valueValidation.length === 10 && valueValidation.includes(202)) {
       value = new Date(e.target.value);
     } else {
@@ -114,7 +98,9 @@ function TaxesReportForm({ handleChange, value }) {
                 data-tax={item}
                 {...(value && value[item] && value[item].taxPayDate
                   ? {
-                      defaultValue: `${value[item].taxPayDate.substr(0, 10)}`,
+                      defaultValue: `${value[item].taxPayDate
+                        .toString()
+                        .substr(0, 10)}`,
                     }
                   : {
                       defaultValue: `${window.localStorage.getItem(

@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
-import { useSelector } from 'react-redux';
-import { getCompanyReport } from '../../redux/reports/reports-selector';
-import getReportData from '../../helpers/forEditReportItemList';
-import styles from './ReportEditModal.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { useFetchUpdateReportMutation } from '../../redux/services/reportsAPI';
+import { getToken } from '../../redux/auth/auth-selectors';
+import { getCompanyReport } from '../../redux/reports/reports-selector';
+import * as actions from '../../redux/reports/reports-action';
+
+import getReportData from '../../helpers/forEditReportItemList';
 import BasicDataReportForm from '../ReportCreationForm/BasicDataReportForm';
 import PrimaryAccountingDocReportForm from '../ReportCreationForm/PrimaryAccountingDocReportForm';
 import VatReportForm from '../ReportCreationForm/VatReportForm';
@@ -14,9 +17,19 @@ import FiledAccountingReportsForm from '../ReportCreationForm/FiledAccountingRep
 import ClosingMonthReportForm from '../ReportCreationForm/ClosingMonthReportForm';
 import AdditionalServicesReportForm from '../ReportCreationForm/AdditionalServicesReportForm';
 
+import styles from './ReportEditModal.module.css';
+
 const modalRoot = document.querySelector('#modal-editReport-root');
 
-export default function ReportEditModal({ reportPart, text, onClose }) {
+export default function ReportEditModal({
+  reportPart,
+  text,
+  onClose,
+  showMessage,
+}) {
+  const [fetchUpdateReport] = useFetchUpdateReportMutation();
+  const token = useSelector(getToken);
+  const dispatch = useDispatch();
   const companyReport = useSelector(getCompanyReport);
   const [newGeneralInfo, setNewGeneralInfo] = useState(
     getReportData(companyReport, 'generalInfo'),
@@ -124,10 +137,23 @@ export default function ReportEditModal({ reportPart, text, onClose }) {
       component = 'ERROR';
   }
 
+  const updateReportAndPushToStore = async updatedReport => {
+    try {
+      const response = await fetchUpdateReport({ token, updatedReport });
+      console.log(response.data);
+      dispatch(actions.updateReport(response.data));
+      showMessage(response);
+      onClose();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(newReportInfo);
   const formSubmit = e => {
     e.preventDefault();
-
     const updatedReport = {
+      reportId: companyReport.id,
       ...newGeneralInfo,
       ...newPrimeAccDocInfo,
       ...newVatInfo,
@@ -138,7 +164,7 @@ export default function ReportEditModal({ reportPart, text, onClose }) {
       ...newAdditionalServicesInfo,
     };
     console.log(updatedReport);
-    // postUpdatedReport(updateReport);
+    updateReportAndPushToStore(updatedReport);
   };
 
   return createPortal(
