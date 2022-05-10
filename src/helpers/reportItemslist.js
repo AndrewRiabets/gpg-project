@@ -1,6 +1,6 @@
 const generalInfo = {
   month: '',
-  taxSystem: '',
+  taxSystem: 'Общая система С НДС',
   emplBeginMonth: '',
   emplEndMonth: '',
   firstSalaryDay: '',

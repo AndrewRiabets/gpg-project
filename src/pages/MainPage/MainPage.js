@@ -12,6 +12,7 @@ import CreatedReports from '../../Components/ReportView/CreatedReports';
 import style from './MainPage.module.css';
 
 const MainPage = () => {
+  const [isFetchingCompanies, setIsFetchingCompanies] = useState(false);
   const [fetchUserCompanies] = useFetchCurrntUserCompaniesMutation();
   const [companyName, setCompanyName] = useState('');
   const [companyListRender, setCompanyListRender] = useState(false);
@@ -21,7 +22,9 @@ const MainPage = () => {
 
   const getAllUserCompanies = useCallback(async () => {
     try {
+      setIsFetchingCompanies(true);
       const response = await fetchUserCompanies(token);
+      setIsFetchingCompanies(false);
       dispatch(actions.getUserCompanies(response.data));
     } catch (error) {}
   }, [token, dispatch, fetchUserCompanies]);
@@ -43,31 +46,33 @@ const MainPage = () => {
 
   return (
     <>
-      <Container>
-        <div className={style.mainPageContainer}>
-          {userCompanies.length > 0 && (
-            <h1 className={style.mainPageTitle}>Выбирете компанию</h1>
-          )}
-          <ul className={style.companyList}>
-            {!userCompanies.length > 0 ? (
-              <h3>За вами не закреплено ни одной компании!</h3>
-            ) : (
-              userCompanies.map(el => (
-                <li key={el.id} className={style.companyListItem}>
-                  <button
-                    type="button"
-                    onClick={btnCompanyHandler}
-                    className={style.companyButton}
-                  >
-                    {el.name}
-                  </button>
-                </li>
-              ))
+      {!isFetchingCompanies && (
+        <Container>
+          <div className={style.mainPageContainer}>
+            {userCompanies.length > 0 && (
+              <h1 className={style.mainPageTitle}>Выбирете компанию</h1>
             )}
-          </ul>
-          {companyListRender && <CreatedReports companyName={companyName} />}
-        </div>
-      </Container>
+            <ul className={style.companyList}>
+              {!userCompanies.length > 0 ? (
+                <h3>За вами не закреплено ни одной компании!</h3>
+              ) : (
+                userCompanies.map(el => (
+                  <li key={el.id} className={style.companyListItem}>
+                    <button
+                      type="button"
+                      onClick={btnCompanyHandler}
+                      className={style.companyButton}
+                    >
+                      {el.name}
+                    </button>
+                  </li>
+                ))
+              )}
+            </ul>
+            {companyListRender && <CreatedReports companyName={companyName} />}
+          </div>
+        </Container>
+      )}
     </>
   );
 };

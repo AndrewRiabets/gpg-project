@@ -19,14 +19,14 @@ function FiledAccountingReportsForm({ handleChange, value }) {
     let value;
     const valueValidation = e.target.value;
     if (valueValidation.length === 10 && valueValidation.includes(202)) {
-      value = new Date(e.target.value);
+      value = new Date(e.target.value).toISOString();
     } else {
       value = e.target.value;
     }
     const reportItemId = e.target.id;
     const data = e.target.dataset.report;
     const taxSample = { reportTitle: '', reportPayDate: '' };
-
+    console.log(value);
     for (const key in reportsInfo) {
       if (key === data) {
         localStorage.setItem(`${key}-${reportItemId}`, value);

@@ -20,7 +20,7 @@ function TaxesReportForm({ handleChange, value }) {
     const valueValidation = e.target.value;
 
     if (valueValidation.length === 10 && valueValidation.includes(202)) {
-      value = new Date(e.target.value);
+      value = new Date(e.target.value).toISOString();
     } else {
       value = e.target.value;
     }

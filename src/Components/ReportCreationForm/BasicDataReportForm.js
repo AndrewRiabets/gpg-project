@@ -2,17 +2,7 @@ import reportItemsList from '../../helpers/reportItemslist';
 
 function BasicDataReportForm({ handleChange, value }) {
   let newGeneralInfo = value || reportItemsList.generalInfo;
-  // !companyReport
-  //   ? (newGeneralInfo = reportItemsList.generalInfo)
-  //   : (newGeneralInfo = {
-  //       month: companyReport.date,
-  //       taxSystem: companyReport.taxSystem,
-  //       emplBeginMonth: companyReport.emplBeginMonth,
-  //       emplEndMonth: companyReport.emplEndMonth,
-  //       firstSalaryDay: companyReport.firstSalaryDay,
-  //       secondSalaryDay: companyReport.secondSalaryDay,
-  //     });
-  console.log(value);
+
   const handleReportItem = e => {
     const value = e.target.value;
     const reportItemId = e.target.id;
@@ -45,9 +35,11 @@ function BasicDataReportForm({ handleChange, value }) {
           name="taxationSystems"
           id="taxSystem"
           onChange={handleReportItem}
-          {...(value && {
-            defaultValue: `${value.taxSystem}`,
-          })}
+          {...(value
+            ? {
+                defaultValue: `${value.taxSystem}`,
+              }
+            : { defaultValue: 'Общая система С НДС' })}
           required
         >
           <option value="Общая система С НДС">Общая система С НДС</option>
